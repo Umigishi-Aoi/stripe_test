@@ -23,11 +23,13 @@ module.exports = {
   plugins: ['@typescript-eslint', 'import'],
   rules: {
     'quotes': ['error', 'single'],
+    // indent: ['error', 2],
     'semi': ['error', 'never'],
     'object-curly-spacing': ['error', 'always'],
     'array-bracket-spacing': ['error', 'never'],
     'import/no-unresolved': 0,
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    // '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-var-requires': 'off',
   },
