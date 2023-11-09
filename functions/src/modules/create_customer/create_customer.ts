@@ -6,7 +6,7 @@ import { registerCustomer } from './register_customer'
 export const createCustomer = functions
     .region('asia-northeast1')
     .runWith({ secrets: ['STRIPE_SECRET'] })
-    .https.onCall(async (data) => {
+    .https.onCall(async (data, context) => {
         if (await checkExistance(data.uid, 'owners')) {
             return {
                 statusCode: 200,
@@ -14,7 +14,7 @@ export const createCustomer = functions
         }
 
         const key = process.env.STRIPE_SECRET ?? ''
-        const email = data.email
+        const email = context.auth?.token.email ?? ''
         const idempotencyKey = data.idempotencyKey
 
         let customerId: string

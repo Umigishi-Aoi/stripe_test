@@ -6,7 +6,7 @@ import { registerOwner } from './register_owner'
 export const createOwner = functions
     .region('asia-northeast1')
     .runWith({ secrets: ['STRIPE_SECRET'] })
-    .https.onCall(async (data) => {
+    .https.onCall(async (data, context) => {
         if (await checkExistance(data.uid, 'customers')) {
             return {
                 statusCode: 200,
@@ -14,7 +14,7 @@ export const createOwner = functions
         }
 
         const key = process.env.STRIPE_SECRET ?? ''
-        const email = data.email
+        const email = context.auth?.token.email ?? ''
         const idempotencyKey = data.idempotencyKey
 
         let connectAccountId: string
