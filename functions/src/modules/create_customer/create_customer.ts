@@ -1,21 +1,20 @@
-import * as functions from 'firebase-functions'
+import * as functions from 'firebase-functions/v2/https'
 import { createStripeCustomer } from './create_stripe_customer'
 import { checkExistance } from '../core/check_existance'
 import { registerCustomer } from './register_customer'
 
-export const createCustomer = functions
-    .region('asia-northeast1')
-    .runWith({ secrets: ['STRIPE_SECRET'] })
-    .https.onCall(async (data, context) => {
-        if (await checkExistance(data.uid, 'owners')) {
+export const createCustomer = functions.onCall(
+    { region: 'asia-northeast1', secrets: ['STRIPE_SECRET'] },
+    async (request: functions.CallableRequest<CreateUserRequest>) => {
+        if (await checkExistance(request.auth?.uid ?? '', 'owners')) {
             return {
                 statusCode: 200,
             }
         }
 
         const key = process.env.STRIPE_SECRET ?? ''
-        const email = context.auth?.token.email ?? ''
-        const idempotencyKey = data.idempotencyKey
+        const email = request.auth?.token.email ?? ''
+        const idempotencyKey = request.data.idempotencyKey
 
         let customerId: string
         try {
@@ -40,9 +39,9 @@ export const createCustomer = functions
         }
 
         const newCustomer: Customer = {
-            id: data.uid,
-            userName: data.userName,
-            email: data.email,
+            id: request.auth?.uid ?? '',
+            userName: request.data.userName,
+            email: request.auth?.token.email ?? '',
             customerId: customerId,
         }
 
@@ -70,4 +69,5 @@ export const createCustomer = functions
         return {
             statusCode: 200,
         }
-    })
+    },
+)

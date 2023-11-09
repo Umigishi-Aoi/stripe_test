@@ -1,21 +1,20 @@
-import * as functions from 'firebase-functions'
+import * as functions from 'firebase-functions/v2/https'
 import { createStripeConnectAccount } from './create_stripe_connect_account'
 import { checkExistance } from '../core/check_existance'
 import { registerOwner } from './register_owner'
 
-export const createOwner = functions
-    .region('asia-northeast1')
-    .runWith({ secrets: ['STRIPE_SECRET'] })
-    .https.onCall(async (data, context) => {
-        if (await checkExistance(data.uid, 'customers')) {
+export const createOwner = functions.onCall(
+    { region: 'asia-northeast1', secrets: ['STRIPE_SECRET'] },
+    async (request: functions.CallableRequest<CreateUserRequest>) => {
+        if (await checkExistance(request.auth?.uid ?? '', 'customers')) {
             return {
                 statusCode: 200,
             }
         }
 
         const key = process.env.STRIPE_SECRET ?? ''
-        const email = context.auth?.token.email ?? ''
-        const idempotencyKey = data.idempotencyKey
+        const email = request.auth?.token.email ?? ''
+        const idempotencyKey = request.data.idempotencyKey
 
         let connectAccountId: string
         try {
@@ -44,9 +43,9 @@ export const createOwner = functions
         }
 
         const newOwner: Owner = {
-            id: data.uid,
-            userName: data.userName,
-            email: data.email,
+            id: request.auth?.uid ?? '',
+            userName: request.data.userName,
+            email: request.auth?.token.email ?? '',
             connectAccountId: connectAccountId,
         }
 
@@ -74,4 +73,5 @@ export const createOwner = functions
         return {
             statusCode: 200,
         }
-    })
+    },
+)
