@@ -5,3 +5,6 @@ analyzer:
     - custom_lint
   errors: 
     sort_pub_dependencies: false
+    file_names: false
+    invalid_annotation_target: false
+    
