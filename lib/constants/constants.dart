@@ -9,3 +9,7 @@ const ownerPassword = 'ownertest';
 const customerName = 'customer';
 const customerEmailAdress = 'customer@stripetest.com';
 const customerPassword = 'customertest';
+
+// function関連
+const statusCode = 'statusCode';
+const errorCode = 'errorCode';

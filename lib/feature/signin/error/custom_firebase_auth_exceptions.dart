@@ -82,6 +82,7 @@ enum CustomFirebaseAuthExceptions implements Exception {
   missingOauthClientSecret(
     message: 'OIDC コードフローを有効にするには、OAuth 構成クライアント シークレットが必要です。',
   ),
+  networkRequestFailed(message: '接続がタイムアウトしました。'),
   operationNotAllowed(message: '提供されたログイン プロバイダは Firebase プロジェクトで無効になっています。'),
   phoneNumberAlreadyExists(
     message: '提供された phoneNumberはすでに既存のユーザーによって使用されています。',
@@ -175,6 +176,8 @@ enum CustomFirebaseAuthExceptions implements Exception {
         'missing-uid' => CustomFirebaseAuthExceptions.missingUid,
         'missing-oauth-client-secret' =>
           CustomFirebaseAuthExceptions.missingOauthClientSecret,
+        'network-request-failed' =>
+          CustomFirebaseAuthExceptions.networkRequestFailed,
         'operation-not-allowed' =>
           CustomFirebaseAuthExceptions.operationNotAllowed,
         'phone-number-already-exists' =>

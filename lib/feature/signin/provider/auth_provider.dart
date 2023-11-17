@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stripe_test/constants/constants.dart';
 import 'package:stripe_test/feature/core/provider/firebase_auth_provider.dart';
 import 'package:stripe_test/feature/signin/error/custom_firebase_auth_exceptions.dart';
+import 'package:stripe_test/feature/signin/provider/user_function_call_provider.dart';
 
 import '../../core/model/role.dart';
 import '../model/app_user.dart';
@@ -22,24 +23,33 @@ class AuthedUser extends _$AuthedUser {
     final user = AppUser.fromRole(role);
 
     try {
-      await ref.watch(firebaseAuthProvider).signInWithEmailAndPassword(
+      await ref.read(firebaseAuthProvider).signInWithEmailAndPassword(
             email: user.emailAdress,
             password: user.password,
           );
     } on CustomFirebaseAuthExceptions catch (e) {
       return e.message;
     }
-    state = ref.watch(firebaseAuthProvider).currentUser;
-    return ok;
+
+    final result =
+        await ref.read(userFunctionCallProvider.notifier).setUserInfo(role);
+
+    if (result != ok) {
+      await signOut();
+      return result;
+    }
+
+    state = ref.read(firebaseAuthProvider).currentUser;
+    return result;
   }
 
   Future<String> signOut() async {
     try {
-      await ref.watch(firebaseAuthProvider).signOut();
+      await ref.read(firebaseAuthProvider).signOut();
     } on CustomFirebaseAuthExceptions catch (e) {
       return e.message;
     }
-    state = ref.watch(firebaseAuthProvider).currentUser;
+    state = ref.read(firebaseAuthProvider).currentUser;
     return ok;
   }
 }
