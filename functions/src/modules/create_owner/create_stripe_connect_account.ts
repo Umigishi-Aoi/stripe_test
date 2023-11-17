@@ -9,13 +9,13 @@ export const createStripeConnectAccount = async (
 
     const owner = await stripe.accounts.create(
         {
-            type: 'standard',
+            type: 'custom',
             country: 'JP',
             email: email,
             business_type: 'individual',
             capabilities: {
                 card_payments: { requested: true },
-                transfers: { requested: false },
+                transfers: { requested: true },
             },
             individual: {
                 email: email,

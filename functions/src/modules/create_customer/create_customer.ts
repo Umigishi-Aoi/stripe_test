@@ -6,12 +6,30 @@ import { registerCustomer } from './register_customer'
 export const createCustomer = functions.onCall(
     { region: 'asia-northeast1', secrets: ['STRIPE_SECRET'] },
     async (request: functions.CallableRequest<CreateUserRequest>) => {
-        if (await checkExistance(request.auth?.uid ?? '', 'owners')) {
-            return {
-                statusCode: 200,
+        try {
+            if (await checkExistance(request.auth?.uid ?? '', 'customers')) {
+                return {
+                    statusCode: 200,
+                }
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                return {
+                    statusCode: 402,
+                    errorCode: `${error.message}`,
+                }
+            } else if (typeof error === 'string') {
+                return {
+                    statusCode: 402,
+                    errorCode: `${error}`,
+                }
+            } else {
+                return {
+                    statusCode: 402,
+                    errorCode: 'unexpected error',
+                }
             }
         }
-
         const key = process.env.STRIPE_SECRET ?? ''
         const email = request.auth?.token.email ?? ''
         const idempotencyKey = request.data.idempotencyKey
