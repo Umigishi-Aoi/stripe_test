@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stripe_test/constants/constants.dart';
 import 'package:stripe_test/feature/signin/provider/auth_provider.dart';
+import 'package:stripe_test/feature/signin/provider/user_role_provider.dart';
 
 import '../../core/model/role.dart';
 
@@ -10,7 +11,8 @@ class SignInPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(authedUserProvider.notifier);
+    final authedUserNotifier = ref.watch(authedUserProvider.notifier);
+    final userRoleNotifier = ref.watch(userRoleProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign in'),
@@ -23,7 +25,8 @@ class SignInPage extends ConsumerWidget {
             for (final Role role in Role.values)
               ElevatedButton(
                 onPressed: () async {
-                  final result = await notifier.signIn(role: role);
+                  userRoleNotifier.state = role;
+                  final result = await authedUserNotifier.signIn(role: role);
 
                   if (!context.mounted) {
                     return;
@@ -36,6 +39,8 @@ class SignInPage extends ConsumerWidget {
                       ),
                     );
                   }
+
+                  userRoleNotifier.state = role;
                 },
                 child: Text(role.name),
               ),
