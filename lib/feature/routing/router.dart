@@ -17,7 +17,9 @@ GoRouter router(RouterRef ref) {
       if (!signedIn && !signingIn) {
         return const SignInRoute().location;
       }
-      if (signedIn && signingIn) return const HomeRoute().location;
+      if (signedIn && signingIn) {
+        return const HomeRoute().location;
+      }
       return null;
     },
   );
