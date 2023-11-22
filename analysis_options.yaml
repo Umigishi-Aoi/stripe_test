@@ -7,4 +7,8 @@ analyzer:
     sort_pub_dependencies: false
     file_names: false
     invalid_annotation_target: false
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
+
     
