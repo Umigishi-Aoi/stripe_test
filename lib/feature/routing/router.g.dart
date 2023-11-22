@@ -8,11 +8,12 @@ part of 'router.dart';
 
 List<RouteBase> get $appRoutes => [
       $signInRoute,
-      $homeRoute,
+      $customerRoute,
+      $ownerRoute,
     ];
 
 RouteBase get $signInRoute => GoRouteData.$route(
-      path: '/sign-in',
+      path: '/',
       factory: $SignInRouteExtension._fromState,
     );
 
@@ -20,7 +21,7 @@ extension $SignInRouteExtension on SignInRoute {
   static SignInRoute _fromState(GoRouterState state) => const SignInRoute();
 
   String get location => GoRouteData.$location(
-        '/sign-in',
+        '/',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -33,16 +34,38 @@ extension $SignInRouteExtension on SignInRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $homeRoute => GoRouteData.$route(
-      path: '/',
-      factory: $HomeRouteExtension._fromState,
+RouteBase get $customerRoute => GoRouteData.$route(
+      path: '/customer',
+      factory: $CustomerRouteExtension._fromState,
     );
 
-extension $HomeRouteExtension on HomeRoute {
-  static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
+extension $CustomerRouteExtension on CustomerRoute {
+  static CustomerRoute _fromState(GoRouterState state) => const CustomerRoute();
 
   String get location => GoRouteData.$location(
-        '/',
+        '/customer',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $ownerRoute => GoRouteData.$route(
+      path: '/owner',
+      factory: $OwnerRouteExtension._fromState,
+    );
+
+extension $OwnerRouteExtension on OwnerRoute {
+  static OwnerRoute _fromState(GoRouterState state) => const OwnerRoute();
+
+  String get location => GoRouteData.$location(
+        '/owner',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -59,7 +82,7 @@ extension $HomeRouteExtension on HomeRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'247bc8c927b35f1d17439328efa3dc8d94430182';
+String _$routerHash() => r'd73f95618c6a6d1d154b4b4368db7b58d9cffcce';
 
 /// See also [router].
 @ProviderFor(router)
