@@ -16,7 +16,7 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
     <String, dynamic>{
-      'role': _$RoleEnumMap[instance.role],
+      'role': _$RoleEnumMap[instance.role]!,
       'name': instance.name,
       'emailAdress': instance.emailAdress,
       'password': instance.password,
