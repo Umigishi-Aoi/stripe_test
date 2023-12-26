@@ -24,7 +24,7 @@ class AuthedUser extends _$AuthedUser {
 
     try {
       await ref.read(firebaseAuthProvider).signInWithEmailAndPassword(
-            email: user.emailAdress,
+            email: user.emailAddress,
             password: user.password,
           );
     } on CustomFirebaseAuthExceptions catch (e) {
