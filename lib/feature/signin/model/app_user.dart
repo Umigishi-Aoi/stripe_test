@@ -10,7 +10,7 @@ class AppUser with _$AppUser {
   const factory AppUser({
     required Role role,
     required String name,
-    required String emailAdress,
+    required String emailAddress,
     required String password,
   }) = _AppUser;
 
@@ -21,13 +21,13 @@ class AppUser with _$AppUser {
         Role.customer => AppUser(
             role: role,
             name: customerName,
-            emailAdress: customerEmailAdress,
+            emailAddress: customerEmailAddress,
             password: customerPassword,
           ),
         Role.owner => AppUser(
             role: role,
             name: ownerName,
-            emailAdress: ownerEmailAdress,
+            emailAddress: ownerEmailAddress,
             password: ownerPassword,
           )
       };

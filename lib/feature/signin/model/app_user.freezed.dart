@@ -22,7 +22,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 mixin _$AppUser {
   Role get role => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get emailAdress => throw _privateConstructorUsedError;
+  String get emailAddress => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
-  $Res call({Role role, String name, String emailAdress, String password});
+  $Res call({Role role, String name, String emailAddress, String password});
 }
 
 /// @nodoc
@@ -53,7 +53,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   $Res call({
     Object? role = null,
     Object? name = null,
-    Object? emailAdress = null,
+    Object? emailAddress = null,
     Object? password = null,
   }) {
     return _then(_value.copyWith(
@@ -65,9 +65,9 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      emailAdress: null == emailAdress
-          ? _value.emailAdress
-          : emailAdress // ignore: cast_nullable_to_non_nullable
+      emailAddress: null == emailAddress
+          ? _value.emailAddress
+          : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
       password: null == password
           ? _value.password
@@ -84,7 +84,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$$AppUserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Role role, String name, String emailAdress, String password});
+  $Res call({Role role, String name, String emailAddress, String password});
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
   $Res call({
     Object? role = null,
     Object? name = null,
-    Object? emailAdress = null,
+    Object? emailAddress = null,
     Object? password = null,
   }) {
     return _then(_$AppUserImpl(
@@ -112,9 +112,9 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      emailAdress: null == emailAdress
-          ? _value.emailAdress
-          : emailAdress // ignore: cast_nullable_to_non_nullable
+      emailAddress: null == emailAddress
+          ? _value.emailAddress
+          : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
       password: null == password
           ? _value.password
@@ -130,7 +130,7 @@ class _$AppUserImpl implements _AppUser {
   const _$AppUserImpl(
       {required this.role,
       required this.name,
-      required this.emailAdress,
+      required this.emailAddress,
       required this.password});
 
   factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
@@ -141,13 +141,13 @@ class _$AppUserImpl implements _AppUser {
   @override
   final String name;
   @override
-  final String emailAdress;
+  final String emailAddress;
   @override
   final String password;
 
   @override
   String toString() {
-    return 'AppUser(role: $role, name: $name, emailAdress: $emailAdress, password: $password)';
+    return 'AppUser(role: $role, name: $name, emailAddress: $emailAddress, password: $password)';
   }
 
   @override
@@ -157,8 +157,8 @@ class _$AppUserImpl implements _AppUser {
             other is _$AppUserImpl &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.emailAdress, emailAdress) ||
-                other.emailAdress == emailAdress) &&
+            (identical(other.emailAddress, emailAddress) ||
+                other.emailAddress == emailAddress) &&
             (identical(other.password, password) ||
                 other.password == password));
   }
@@ -166,7 +166,7 @@ class _$AppUserImpl implements _AppUser {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, role, name, emailAdress, password);
+      Object.hash(runtimeType, role, name, emailAddress, password);
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +186,7 @@ abstract class _AppUser implements AppUser {
   const factory _AppUser(
       {required final Role role,
       required final String name,
-      required final String emailAdress,
+      required final String emailAddress,
       required final String password}) = _$AppUserImpl;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
@@ -196,7 +196,7 @@ abstract class _AppUser implements AppUser {
   @override
   String get name;
   @override
-  String get emailAdress;
+  String get emailAddress;
   @override
   String get password;
   @override
